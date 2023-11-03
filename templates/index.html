@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Movie Directory{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1 class="heading">Movie Directory</h1>
+  <h2 class="description">My all-time movie history.</h2>
+   {% for movie in all_movies %}
+      <div class="card border border-dark" style="height: 440px">
+        <div class="front" style="background-image: url('{{ movie.img_url }}'); background-size: 100% 100%;">
+            <p class="large"></p>
+        </div>
+        <div class="back">
+          <div>
+        <div class="title">{{ movie.title }}<span class="release_date"> ({{ movie.year }})</span></div>
+            <div class="rating">
+                <label>{{ movie.rating }}</label>
+              <i class="fas fa-star star"></i>
+            </div>
+              <p class="review">"{{ movie.review }}"</p>
+            <p class="overview">
+                {{ movie.description }}
+            </p>
+
+            <a href="{{ url_for('edit', id_num=movie.id) }}" class="btn btn-dark">Update</a>
+            <a href="{{ url_for('home', del_id_num=movie.id) }}" class="btn btn-danger">Delete</a>
+
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+</div>
+<div class="container text-center add pb-5">
+<a href="{{ url_for('add') }}" class="btn btn-dark" role="button">Add Movie</a>
+</div>
+
+{% endblock %}
